@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 const LandingServices = () => {
   const professionalServices = [
@@ -9,21 +10,21 @@ const LandingServices = () => {
       title: "Cloud Services",
       description:
         "Cloud strategy, migration, security, application modernization, and DevSecOps for secure, scalable solutions.",
-      icon: "/cloud_gear.png", // Example, put your real path here
+      image: "/__Cloud Strategy & Migration.jpg",
       link: "/cloud-services-details",
     },
     {
       title: "Data Services",
       description:
         "Data engineering, analytics, and science for scalable infrastructure, insights, and data-driven decisions.",
-      icon: "/_Cloud_with.png", // Example, put your real path here
+      image: "/__Application Modernization.jpg",
       link: "/data-services-details",
     },
     {
       title: "Business Process Automation",
       description:
         "Custom applications, workflow automation, legacy system modernization, and mobile development for business efficiency.",
-      icon: "/gear.png", // Example, put your real path here
+      image: "/__Custom Application Development.jpg",
       link: "/business-process-automation-details",
     },
   ];
@@ -65,70 +66,79 @@ const LandingServices = () => {
   return (
     <>
       {/* PROFESSIONAL SERVICES Carousel */}
-      <section
-        className="relative py-16 mb-16"
-        style={{
-          backgroundImage: "url('/bg-body.png')", // use your background image here
-          backgroundSize: "cover",
-          backgroundPosition: "top",
-          backgroundRepeat: "no-repeat",
-          borderRadius: "20px",
-        }}
-      >
-        <h2 className="text-4xl font-extrabold mb-6 text-center text-white uppercase">
-          PROFESSIONAL SERVICES
-        </h2>
-        <div className="w-16 h-1 mx-auto bg-white rounded-full mb-12"></div>
+      <section className="relative mb-16 h-[600px] overflow-hidden rounded-2xl">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentSlide}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.7 }}
+            className="absolute inset-0"
+          >
+            <div className="relative w-full h-full">
+              <Image
+                src={professionalServices[currentSlide].image}
+                alt={`${professionalServices[currentSlide].title}`}
+                fill
+                className="object-cover"
+                quality={90}
+                priority
+              />
+              <div className="absolute inset-0 bg-black/50" />
+            </div>
+          </motion.div>
+        </AnimatePresence>
 
-        <div className="relative max-w-3xl mx-auto px-4">
-        <button
-    onClick={prevSlide}
-    className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white text-4xl z-10 hover:text-gray-300"
-  >
-    &#10094;
-  </button>
-  <button
-    onClick={nextSlide}
-    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white text-4xl z-10 hover:text-gray-300"
-  >
-    &#10095;
-  </button>
+        <div className="relative z-10 h-full flex flex-col justify-center items-center px-4">
+          <h2 className="text-4xl font-extrabold mb-6 text-center text-white uppercase">
+            PROFESSIONAL SERVICES
+          </h2>
+          <div className="w-16 h-1 mx-auto bg-white rounded-full mb-12"></div>
 
-  <div className="relative max-w-3xl mx-auto px-4">
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={currentSlide}
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.9 }}
-        transition={{ duration: 0.5 }}
-        className="flex flex-col items-center text-center text-white"
-      >
-        <img
-          src={professionalServices[currentSlide].icon}
-          alt={`${professionalServices[currentSlide].title} icon`}
-          className="w-60 h-60 mb-6"
-        />
-        <h3 className="text-2xl font-semibold mb-4">
-          {professionalServices[currentSlide].title}
-        </h3>
-        <p className="text-sm leading-relaxed mb-6 max-w-md">
-          {professionalServices[currentSlide].description}
-        </p>
-        <a
-          href={professionalServices[currentSlide].link}
-          className="text-sm py-2 px-6 border border-white rounded-full hover:bg-white hover:text-[#004B6B] transition-colors"
-        >
-          Read more
-        </a>
-      </motion.div>
-    </AnimatePresence>
-  </div>
+          <div className="max-w-3xl mx-auto text-center">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentSlide}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="text-white"
+              >
+                <h3 className="text-3xl font-semibold mb-4">
+                  {professionalServices[currentSlide].title}
+                </h3>
+                <p className="text-lg leading-relaxed mb-8 max-w-2xl mx-auto">
+                  {professionalServices[currentSlide].description}
+                </p>
+                <a
+                  href={professionalServices[currentSlide].link}
+                  className="inline-block text-lg py-3 px-8 border-2 border-white rounded-full hover:bg-white hover:text-[#004B6B] transition-colors"
+                >
+                  Learn More
+                </a>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          <button
+            onClick={prevSlide}
+            className="absolute left-6 top-1/2 transform -translate-y-1/2 text-white text-5xl z-10 hover:text-gray-300 transition-colors"
+          >
+            ‹
+          </button>
+          <button
+            onClick={nextSlide}
+            className="absolute right-6 top-1/2 transform -translate-y-1/2 text-white text-5xl z-10 hover:text-gray-300 transition-colors"
+          >
+            ›
+          </button>
         </div>
       </section>
 
       {/* MANAGED SERVICES */}
-      <section className="relative py-16 mb-16 bg-white">
+      <section className="relative py-16  bg-white">
   <h2 className="text-3xl font-bold mb-6 text-center text-[#004B6B]">
     MANAGED SERVICES
   </h2>
@@ -156,8 +166,8 @@ const LandingServices = () => {
     </div>
 
     {/* 4 blocks */}
-    <div className="grid grid-cols-2 gap-8">
-      <div className="flex flex-col items-center text-center px-4">
+    <div className="absolute top-10 grid grid-cols-2 gap-10">
+      <div className="flex flex-col items-center text-center px-4 mr-20">
         <h3 className="text-lg font-semibold text-[#004B6B] mb-2">
           24/7 Cloud Infrastructure Management
         </h3>
@@ -166,7 +176,7 @@ const LandingServices = () => {
           proactive maintenance and optimization.
         </p>
       </div>
-      <div className="flex flex-col items-center text-center px-4">
+      <div className="flex flex-col items-center text-center px-4 ml-20">
         <h3 className="text-lg font-semibold text-[#004B6B] mb-2">
           Security Operations
         </h3>
@@ -175,7 +185,7 @@ const LandingServices = () => {
           security analysts.
         </p>
       </div>
-      <div className="flex flex-col items-center text-center px-4">
+      <div className="flex flex-col items-center text-center px-4 mr-20">
         <h3 className="text-lg font-semibold text-[#004B6B] mb-2">
           Backup & Disaster Recovery
         </h3>
@@ -184,7 +194,7 @@ const LandingServices = () => {
           planning and testing.
         </p>
       </div>
-      <div className="flex flex-col items-center text-center px-4">
+      <div className="flex flex-col items-center text-center px-4 ml-20">
         <h3 className="text-lg font-semibold text-[#004B6B] mb-2">
           Custom Managed Service
         </h3>

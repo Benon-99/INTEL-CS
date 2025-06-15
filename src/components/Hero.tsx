@@ -20,11 +20,9 @@ const slides = [
       "Born in the cloud and thriving at the edge of innovation, iNTEL-CS is your partner for comprehensive IT modernization. Located in the UAE, our team of local experts is dedicated to transforming businesses using the power of cloud technology.",
     image: "/bg-body2.png",
     buttons: {
-      primary: { text: "Get in Touch", href: "/contact" }
+      primary: { text: "Get in Touch", href: "/contact" },
     },
   },
-  
-  
 ];
 
 export default function Hero() {
@@ -55,8 +53,6 @@ export default function Hero() {
               className="relative h-full w-full bg-cover bg-center z-30"
               style={{ backgroundImage: `url(${slide.image})` }}
             >
-              
-
               {activeIndex === index && (
                 <div className="relative z-40 h-full flex items-center px-4">
                   <div className="w-full lg:w-[1280px] mx-auto">
@@ -93,7 +89,7 @@ export default function Hero() {
                       </motion.p>
 
                       <motion.div
-                        initial={{ opacity: 0, y: 20 }} 
+                        initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.8 }}
                         className="flex flex-wrap gap-4"
@@ -106,7 +102,6 @@ export default function Hero() {
                             {slide.buttons.primary.text}
                           </span>
                         </Link>
-
                       </motion.div>
                     </motion.div>
                   </div>
@@ -120,7 +115,7 @@ export default function Hero() {
         <div className="swiper-button-next !text-white hover:text-secondary transition-colors"></div>
       </Swiper>
       {/* Robot overlay */}
-      <div className="absolute left-80 top-22 z-10 pointer-events-none">
+      <div className="absolute right-[100px] top-[80px] z-10 pointer-events-none">
         <InteractiveRobot />
       </div>
     </div>

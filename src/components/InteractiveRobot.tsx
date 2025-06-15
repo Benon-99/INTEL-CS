@@ -1,17 +1,16 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Spline from '@splinetool/react-spline';
+import React, { useState } from "react";
+import Spline from "@splinetool/react-spline";
 
 const InteractiveRobot = () => {
   return (
-    <main>
-    <Spline
-      // scene="https://prod.spline.design/GK98AHdw3KKZ659U/scene.splinecode"
-      scene="https://prod.spline.design/AqtlWJlNbO-ZMkvz/scene.splinecode"
-    />
-  </main>
-  )
-}
+    <div className="w-[800px] h-[800px] transform scale-100">
+      <Spline
+        scene="https://prod.spline.design/QI7H7TvGkqIQ9HeK/scene.splinecode"
+      />
+    </div>
+  );
+};
 
-export default InteractiveRobot
+export default InteractiveRobot;
