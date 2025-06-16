@@ -10,45 +10,26 @@ const LandingServices = () => {
       title: "Cloud Services",
       description:
         "Cloud strategy, migration, security, application modernization, and DevSecOps for secure, scalable solutions.",
-      image: "/__Cloud Strategy & Migration.jpg",
+      image: "/pro1.webp",
       link: "/cloud-services-details",
     },
     {
       title: "Data Services",
       description:
         "Data engineering, analytics, and science for scalable infrastructure, insights, and data-driven decisions.",
-      image: "/__Application Modernization.jpg",
+      image: "/pro2.webp",
       link: "/data-services-details",
     },
     {
       title: "Business Process Automation",
       description:
         "Custom applications, workflow automation, legacy system modernization, and mobile development for business efficiency.",
-      image: "/__Custom Application Development.jpg",
+      image: "/pro3.webp",
       link: "/business-process-automation-details",
     },
   ];
 
-  const managedServices = [
-    {
-      title: "24/7 Cloud Infrastructure Management",
-      description:
-        "Round-the-clock monitoring and management of cloud infrastructure with proactive maintenance and optimization.",
-      icon: "🕒",
-    },
-    {
-      title: "Security Operations",
-      description:
-        "Continuous security monitoring and threat detection with expert security analysts.",
-      icon: "🛡️",
-    },
-    {
-      title: "Backup & Disaster Recovery",
-      description:
-        "Automated backup solutions with comprehensive disaster recovery planning and testing.",
-      icon: "💾",
-    },
-  ];
+ 
 
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -138,74 +119,97 @@ const LandingServices = () => {
       </section>
 
       {/* MANAGED SERVICES */}
-      <section className="relative py-16  bg-white">
-  <h2 className="text-3xl font-bold mb-6 text-center text-[#004B6B]">
-    MANAGED SERVICES
-  </h2>
-  <p className="max-w-3xl mx-auto text-center mb-12 text-gray-700 px-4">
-    We offer a comprehensive suite of managed services to ensure optimized,
-    secure, and resilient cloud environments for your business.
-  </p>
+      <section className="relative py-16 bg-white">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-3xl font-bold mb-6 text-center text-[#004B6B]"
+        >
+          MANAGED SERVICES
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="max-w-3xl mx-auto text-center mb-12 text-gray-700 px-4"
+        >
+          We offer a comprehensive suite of managed services to ensure optimized,
+          secure, and resilient cloud environments for your business.
+        </motion.p>
 
-  <div className="relative max-w-5xl mx-auto px-4">
-    {/* Central Icon */}
-    <div className="flex justify-center mb-16 relative">
-    <img
-  src="/cloud_gear.png"
-  alt="Managed Services Icon"
-  className="w-60 h-60"
-  style={{
-    filter: 'brightness(0) saturate(100%) invert(12%) sepia(95%) saturate(6000%) hue-rotate(185deg) brightness(90%) contrast(85%)',
-  }}
-/>
+        <div className="relative max-w-5xl mx-auto px-4">
+          {/* Central Icon */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5, rotate: -180 }}
+            whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+            transition={{ duration: 1, delay: 0.3, type: "spring" }}
+            viewport={{ once: true }}
+            className="flex justify-center mb-16 relative"
+          >
+            <img
+              src="/cloud_gear.png"
+              alt="Managed Services Icon"
+              className="w-60 h-60"
+              style={{
+                filter: 'brightness(0) saturate(100%) invert(12%) sepia(95%) saturate(6000%) hue-rotate(185deg) brightness(90%) contrast(85%)',
+              }}
+            />
+          </motion.div>
 
-      {/* Connecting lines (optional) */}
-      <div className="absolute top-1/2 left-1/2 w-[600px] h-[400px] -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-        {/* You can draw lines here using borders or SVG if you want more precise lines */}
-      </div>
-    </div>
-
-    {/* 4 blocks */}
-    <div className="absolute top-10 grid grid-cols-2 gap-10">
-      <div className="flex flex-col items-center text-center px-4 mr-20">
-        <h3 className="text-lg font-semibold text-[#004B6B] mb-2">
-          24/7 Cloud Infrastructure Management
-        </h3>
-        <p className="text-sm text-gray-700">
-          Round-the-clock monitoring and management of cloud infrastructure with
-          proactive maintenance and optimization.
-        </p>
-      </div>
-      <div className="flex flex-col items-center text-center px-4 ml-20">
-        <h3 className="text-lg font-semibold text-[#004B6B] mb-2">
-          Security Operations
-        </h3>
-        <p className="text-sm text-gray-700">
-          Continuous security monitoring and threat detection with expert
-          security analysts.
-        </p>
-      </div>
-      <div className="flex flex-col items-center text-center px-4 mr-20">
-        <h3 className="text-lg font-semibold text-[#004B6B] mb-2">
-          Backup & Disaster Recovery
-        </h3>
-        <p className="text-sm text-gray-700">
-          Automated backup solutions with comprehensive disaster recovery
-          planning and testing.
-        </p>
-      </div>
-      <div className="flex flex-col items-center text-center px-4 ml-20">
-        <h3 className="text-lg font-semibold text-[#004B6B] mb-2">
-          Custom Managed Service
-        </h3>
-        <p className="text-sm text-gray-700">
-          Tailored managed services to match your unique business requirements
-          and ensure operational efficiency.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
+          {/* 4 blocks */}
+          <div className="absolute top-10 grid grid-cols-2 gap-10">
+            {[
+              {
+                title: "24/7 Cloud Infrastructure Management",
+                description: "Round-the-clock monitoring and management of cloud infrastructure with proactive maintenance and optimization.",
+                delay: 0.4,
+                x: -50,
+                className: "mr-20"
+              },
+              {
+                title: "Security Operations",
+                description: "Continuous security monitoring and threat detection with expert security analysts.",
+                delay: 0.6,
+                x: 50,
+                className: "ml-20"
+              },
+              {
+                title: "Backup & Disaster Recovery",
+                description: "Automated backup solutions with comprehensive disaster recovery planning and testing.",
+                delay: 0.8,
+                x: -50,
+                className: "mr-20"
+              },
+              {
+                title: "Custom Managed Service",
+                description: "Tailored managed services to match your unique business requirements and ensure operational efficiency.",
+                delay: 1,
+                x: 50,
+                className: "ml-20"
+              }
+            ].map((service, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: service.x }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: service.delay }}
+                viewport={{ once: true }}
+                className={`flex flex-col items-center text-center px-4 ${service.className}`}
+              >
+                <h3 className="text-lg font-semibold text-[#004B6B] mb-2">
+                  {service.title}
+                </h3>
+                <p className="text-sm text-gray-700">
+                  {service.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
 
     </>
   );

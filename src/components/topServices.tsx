@@ -19,20 +19,20 @@ const TopServices: React.FC = () => {
       description:
         "Cloud strategy, migration, security, application modernization, and DevSecOps for secure, scalable solutions.",
       link: "/cloud-services-details",
-      image: "/__cloud services.jpg"
+      image: "https://placehold.co/600x400/e2e8f0/1e293b?text=Cloud+Services"
     },
     {
       title: "Data Services",
       description:
         "Data engineering, analytics, and science for scalable infrastructure, insights, and data-driven decisions.",
       link: "/data-services-details",
-      image: "/__data services.jpg"
+      image: "/service2.webp"
     },
     {
       title: "Business Process Automation",
       description: "Streamline operations with intelligent automation solutions that enhance efficiency and reduce manual tasks.",
       link: "/automation-services-details",
-      image: "/__Business Process Automation.jpg"
+      image: "/service3.webp"
     }
   ];
 
@@ -61,7 +61,7 @@ const TopServices: React.FC = () => {
                   fill
                   className="object-cover"
                   quality={90}
-                  onError={(e: any) => {
+                  onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
                     console.error(`Error loading image: ${service.image}`);
                     const imgElement = e.target as HTMLImageElement;
                     imgElement.style.display = 'none';

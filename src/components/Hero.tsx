@@ -115,7 +115,7 @@ export default function Hero() {
         <div className="swiper-button-next !text-white hover:text-secondary transition-colors"></div>
       </Swiper>
       {/* Robot overlay */}
-      <div className="absolute right-[100px] top-[80px] z-10 pointer-events-none">
+      <div className="absolute right-[50px] top-[50px] md:right-[100px] lg:right-[150px] xl:right-[200px] z-10 pointer-events-none">
         <InteractiveRobot />
       </div>
     </div>
