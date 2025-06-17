@@ -51,10 +51,10 @@ export default function Hero() {
           <SwiperSlide key={index}>
             <div
               className="relative h-full w-full bg-cover bg-center z-30"
-              style={{ backgroundImage: `url(${slide.image})` }}
+              style={{ backgroundImage: `url(${slide.image})`, rotate: "180deg" }}
             >
               {activeIndex === index && (
-                <div className="relative z-40 h-full flex items-center px-4">
+                <div className="relative z-40 h-full flex items-center px-4 rotate-180">
                   <div className="w-full lg:w-[1280px] mx-auto">
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
@@ -108,6 +108,23 @@ export default function Hero() {
                 </div>
               )}
             </div>
+            <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50">
+        <div className="flex flex-col items-center animate-bounce">
+          <span className="text-sm font-medium text-white mb-2 tracking-wider">
+            SCROLL
+          </span>
+          <svg
+            viewBox="0 0 24 24"
+            className="w-6 h-6 stroke-current text-white"
+            fill="none"
+            strokeWidth="2"
+          >
+            <line x1="12" y1="1" x2="12" y2="22.5" />
+            <line x1="12.1" y1="22.4" x2="18.9" y2="15.6" />
+            <line x1="11.9" y1="22.4" x2="5.1" y2="15.6" />
+          </svg>
+        </div>
+      </div>
           </SwiperSlide>
         ))}
 

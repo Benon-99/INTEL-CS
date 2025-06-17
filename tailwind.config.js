@@ -7,6 +7,14 @@ module.exports = {
       './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     ],
     theme: {
+      screens: {
+        'sm': '640px',
+        'md': '768px',
+        'lg': '1024px',
+        'xl': '1280px',
+        '2xl': '1536px',
+        '18inch': '1728px'
+      },
       extend: {
         animation: {
           'bounce-slow': 'bounce-slow 3s ease-in-out infinite',
@@ -15,6 +23,7 @@ module.exports = {
           'wave-left': 'wave-left 2s ease-in-out infinite',
           'wave-right': 'wave-right 2s ease-in-out infinite 0.5s',
           'step': 'step 1.5s ease-in-out infinite',
+          'spin-slow': 'spin 15s linear infinite',
         },
         keyframes: {
           'bounce-slow': {

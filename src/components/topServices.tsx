@@ -19,73 +19,38 @@ const TopServices: React.FC = () => {
       description:
         "Cloud strategy, migration, security, application modernization, and DevSecOps for secure, scalable solutions.",
       link: "/cloud-services-details",
-      image: "https://placehold.co/600x400/e2e8f0/1e293b?text=Cloud+Services"
+      image: "__2.png"
     },
     {
       title: "Data Services",
       description:
         "Data engineering, analytics, and science for scalable infrastructure, insights, and data-driven decisions.",
       link: "/data-services-details",
-      image: "/service2.webp"
+      image: "__1.png"
     },
     {
       title: "Business Process Automation",
       description: "Streamline operations with intelligent automation solutions that enhance efficiency and reduce manual tasks.",
       link: "/automation-services-details",
-      image: "/service3.webp"
+      image: "__3.png"
     }
   ];
 
   return (
-    <section
-      className="py-16 relative z-20"
-      style={{
-        background: "linear-gradient(135deg, #f6f8f9 0%, #e5ebee 100%)",
-        borderRadius: "20px",
-      }}
-    >
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 perspective-[1000px]">
-          {services.map((service: Service, index: number) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 transform hover:-rotate-y-12 hover:rotate-x-12 group preserve-3d"
-            >
-              <div className="relative h-48 w-full bg-gray-100 overflow-hidden">
-                <Image
-                  src={service.image}
-                  alt={service.title}
-                  fill
-                  className="object-cover"
-                  quality={90}
-                  onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-                    console.error(`Error loading image: ${service.image}`);
-                    const imgElement = e.target as HTMLImageElement;
-                    imgElement.style.display = 'none';
-                  }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-in-out" />
+    <section className="py-16 relative z-20 bg-gray-300">
+        <h1 className="text-3xl font-bold mb-2 text-center text-[#004B6B]">Top Services</h1>
+        <div className="flex grid-cols-3 justify-center gap-4 ">
+          {services&&services.map((service,index)=>(
+            <div key={index} className="relative hover:scale-110 transition-all duration-300">
+              <Image src={service.image} alt={service.title} width={500} height={500}  />
+              <div className="absolute top-[45vh] w-[70%] left-1/2 transform -translate-x-1/2 p-4 gap-2 h-[35%] flex flex-col">
+                <h2 className="text-xl font-bold text-[#004B6B] ">{service.title}</h2>  
+                <p className="text-black">{service.description}</p>
+                <Link href={service.link} className="text-white rounded-2xl bg-[#004B6B] p-2 mt-1 w-[38%] text-center hover:bg-[#2a88b0]">Read More</Link>
               </div>
-              <div className="p-6 relative">
-                <div className="absolute inset-0  opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <h3 className="text-xl font-semibold mb-3 text-gray-800">
-                  {service.title}
-                </h3>
-                <p className="text-gray-600 mb-4">{service.description}</p>
-                <Link
-                  href={service.link}
-                  className="inline-block bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-colors duration-300"
-                >
-                  Learn More
-                </Link>
-              </div>
-            </motion.div>
+            </div>
           ))}
         </div>
-      </div>
     </section>
   );
 };

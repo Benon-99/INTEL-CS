@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
 const LandingServices = () => {
+  // Reference to store the interval
+  const intervalRef = React.useRef<NodeJS.Timeout | null>(null);
   const professionalServices = [
     {
       title: "Cloud Services",
@@ -32,29 +34,83 @@ const LandingServices = () => {
  
 
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [direction, setDirection] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  // Start auto-slide when component mounts
+  React.useEffect(() => {
+    startAutoSlide();
+    return () => stopAutoSlide(); // Cleanup on unmount
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const startAutoSlide = () => {
+    if (intervalRef.current) return; // Don't start if already running
+    intervalRef.current = setInterval(() => {
+      if (!isPaused) {
+        setDirection(1);
+        setCurrentSlide((prev) => (prev + 1) % professionalServices.length);
+      }
+    }, 5 * 60 * 1000); // 5 minutes in milliseconds
+  };
+
+  const stopAutoSlide = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  };
+
+  // Pause auto-slide on hover
+  const handleMouseEnter = () => setIsPaused(true);
+  const handleMouseLeave = () => setIsPaused(false);
 
   const nextSlide = () => {
+    setDirection(1);
     setCurrentSlide((prev) => (prev + 1) % professionalServices.length);
+    // Reset the timer when manually changing slides
+    stopAutoSlide();
+    startAutoSlide();
   };
 
   const prevSlide = () => {
+    setDirection(-1);
     setCurrentSlide(
       (prev) =>
         (prev - 1 + professionalServices.length) % professionalServices.length
     );
+    // Reset the timer when manually changing slides
+    stopAutoSlide();
+    startAutoSlide();
   };
 
   return (
     <>
       {/* PROFESSIONAL SERVICES Carousel */}
-      <section className="relative mb-16 h-[600px] overflow-hidden rounded-2xl">
-        <AnimatePresence mode="wait">
+      <section 
+        className="relative mb-16 h-[600px] overflow-hidden rounded-2xl"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <AnimatePresence initial={false} custom={direction}>
           <motion.div
             key={currentSlide}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.7 }}
+            custom={direction}
+            initial={{
+              x: direction === 1 ? 1000 : -1000,
+              opacity: 0
+            }}
+            animate={{
+              x: 0,
+              opacity: 1
+            }}
+            exit={{
+              x: direction === 1 ? -1000 : 1000,
+              opacity: 0
+            }}
+            transition={{
+              x: { type: "spring", stiffness: 300, damping: 30 },
+              opacity: { duration: 0.2 }
+            }}
             className="absolute inset-0"
           >
             <div className="relative w-full h-full">
@@ -66,7 +122,7 @@ const LandingServices = () => {
                 quality={90}
                 priority
               />
-              <div className="absolute inset-0 bg-black/50" />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70" />
             </div>
           </motion.div>
         </AnimatePresence>
@@ -85,7 +141,7 @@ const LandingServices = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-white"
+                className="text-white backdrop-blur-md bg-white/10 p-8 rounded-xl shadow-lg"
               >
                 <h3 className="text-3xl font-semibold mb-4">
                   {professionalServices[currentSlide].title}
@@ -119,13 +175,42 @@ const LandingServices = () => {
       </section>
 
       {/* MANAGED SERVICES */}
-      <section className="relative py-16 bg-white">
+      <style jsx>{`
+        @keyframes float {
+          0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+          50% { opacity: 0.5; }
+          100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+        .bubble {
+          position: absolute;
+          bottom: -50px;
+          background: rgba(0, 75, 107, 0.1);
+          border-radius: 50%;
+          pointer-events: none;
+          animation: float 15s infinite linear;
+        }
+        .bubble:nth-child(1) { left: 10%; width: 40px; height: 40px; animation-delay: 0s; }
+        .bubble:nth-child(2) { left: 20%; width: 60px; height: 60px; animation-delay: 2s; }
+        .bubble:nth-child(3) { left: 35%; width: 30px; height: 30px; animation-delay: 4s; }
+        .bubble:nth-child(4) { left: 50%; width: 45px; height: 45px; animation-delay: 6s; }
+        .bubble:nth-child(5) { left: 65%; width: 35px; height: 35px; animation-delay: 8s; }
+        .bubble:nth-child(6) { left: 80%; width: 50px; height: 50px; animation-delay: 10s; }
+        .bubble:nth-child(7) { left: 90%; width: 25px; height: 25px; animation-delay: 12s; }
+      `}</style>
+      <section className="relative py-16 bg-gradient-to-b from-white to-[#f5f9fb] overflow-hidden">
+        <div className="bubble"></div>
+        <div className="bubble"></div>
+        <div className="bubble"></div>
+        <div className="bubble"></div>
+        <div className="bubble"></div>
+        <div className="bubble"></div>
+        <div className="bubble"></div>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-3xl font-bold mb-6 text-center text-[#004B6B]"
+          className="text-3xl font-bold mb-6 text-center text-[#004B6B] relative z-10"
         >
           MANAGED SERVICES
         </motion.h2>
@@ -134,7 +219,7 @@ const LandingServices = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
-          className="max-w-3xl mx-auto text-center mb-12 text-gray-700 px-4"
+          className="max-w-3xl mx-auto text-center mb-12 text-gray-700 px-4 relative z-10"
         >
           We offer a comprehensive suite of managed services to ensure optimized,
           secure, and resilient cloud environments for your business.

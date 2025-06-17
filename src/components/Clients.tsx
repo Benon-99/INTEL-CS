@@ -4,11 +4,11 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 const clients = [
-  { name: 'Client 1', logo: '/client1.png' },
-  { name: 'Client 2', logo: '/client2.png' },
-  { name: 'Client 3', logo: '/client3.png' },
-  { name: 'Client 4', logo: '/client4.png' },
-  { name: 'Client 5', logo: '/client5.png' },
+  { name: 'Client 1', logo: '/client11.png' },
+  { name: 'Client 2', logo: '/client22.png' },
+  { name: 'Client 3', logo: '/client33.png' },
+  { name: 'Client 4', logo: '/client44.png' },
+  { name: 'Client 5', logo: '/client55.png' },
 ];
 
 export default function Clients() {
@@ -28,7 +28,7 @@ export default function Clients() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
-                <div className="w-32 h-20 relative grayscale hover:grayscale-0 transition-all duration-300">
+                <div className="w-32 h-20 relative  hover:grayscale-0 transition-all duration-300">
                   <Image
                     src={client.logo}
                     alt={client.name}

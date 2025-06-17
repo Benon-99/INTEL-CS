@@ -73,54 +73,6 @@ const AboutUs = () => {
           </p>
         </motion.div>
       </div>
-
-      {/* Why Choose Us */}
-      <motion.div 
-        ref={whyChooseRef}
-        initial={{ opacity: 0, y: 50 }}
-        animate={whyChooseInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="max-w-5xl mx-auto text-left">
-        <h3 className="text-2xl font-semibold text-white mb-6 text-left drop-shadow-lg">
-          Why Choose iNTEL-CS?
-        </h3>
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={whyChooseInView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 text-white text-left drop-shadow">
-          <div className="flex items-start space-x-3">
-            <span className="text-white font-bold drop-shadow">•</span>
-            <span>Bespoke Solutions tailored to business objectives</span>
-          </div>
-          <div className="flex items-start space-x-3">
-            <span className="text-white font-bold drop-shadow">•</span>
-            <span>
-              Cloud Expertise with AWS and Microsoft Azure partnerships
-            </span>
-          </div>
-          <div className="flex items-start space-x-3">
-            <span className="text-white font-bold drop-shadow">•</span>
-            <span>Security First approach to all implementations</span>
-          </div>
-          <div className="flex items-start space-x-3">
-            <span className="text-white font-bold drop-shadow">•</span>
-            <span>Seamless Migration capabilities</span>
-          </div>
-          <div className="flex items-start space-x-3">
-            <span className="text-white font-bold drop-shadow">•</span>
-            <span>Cost Optimization focus</span>
-          </div>
-          <div className="flex items-start space-x-3">
-            <span className="text-white font-bold drop-shadow">•</span>
-            <span>Enhanced Productivity outcomes</span>
-          </div>
-          <div className="flex items-start space-x-3">
-            <span className="text-white font-bold drop-shadow">•</span>
-            <span>24/7 Managed Services support</span>
-          </div>
-        </motion.div>
-      </motion.div>
     </section>
   );
 };
