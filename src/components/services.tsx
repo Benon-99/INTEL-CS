@@ -258,21 +258,21 @@ const LandingServices = () => {
                 description: "Continuous security monitoring and threat detection with expert security analysts.",
                 delay: 0.6,
                 x: 50,
-                className: "ml-20"
+                className: "ml-50"
               },
               {
                 title: "Backup & Disaster Recovery",
                 description: "Automated backup solutions with comprehensive disaster recovery planning and testing.",
                 delay: 0.8,
                 x: -50,
-                className: "mr-20"
+                className: "mr-50"
               },
               {
                 title: "Custom Managed Service",
                 description: "Tailored managed services to match your unique business requirements and ensure operational efficiency.",
                 delay: 1,
                 x: 50,
-                className: "ml-20"
+                className: "ml-50"
               }
             ].map((service, index) => (
               <motion.div
