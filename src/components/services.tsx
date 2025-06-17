@@ -197,14 +197,13 @@ const LandingServices = () => {
         .bubble:nth-child(6) { left: 80%; width: 50px; height: 50px; animation-delay: 10s; }
         .bubble:nth-child(7) { left: 90%; width: 25px; height: 25px; animation-delay: 12s; }
       `}</style>
-      <section className="relative py-16 bg-gradient-to-b from-white to-[#f5f9fb] overflow-hidden">
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
+      <section className="relative py-16 bg-gradient-to-b from-white to-[#f5f9fb] overflow-hidden bg-black/20 backdrop-blur-sm" style={{
+        backgroundImage: "url('/bg-about2.webp')",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        backgroundSize: "cover",
+      }}>
+        
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -252,7 +251,7 @@ const LandingServices = () => {
                 description: "Round-the-clock monitoring and management of cloud infrastructure with proactive maintenance and optimization.",
                 delay: 0.4,
                 x: -50,
-                className: "mr-20"
+                className: "mr-50"
               },
               {
                 title: "Security Operations",
