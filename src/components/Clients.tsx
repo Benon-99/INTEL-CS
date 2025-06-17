@@ -28,7 +28,7 @@ export default function Clients() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
-                <div className="w-32 h-20 relative  hover:grayscale-0 transition-all duration-300">
+                <div className="w-40 h-40 relative  hover:grayscale-0 transition-all duration-300">
                   <Image
                     src={client.logo}
                     alt={client.name}

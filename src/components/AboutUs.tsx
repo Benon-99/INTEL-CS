@@ -16,7 +16,7 @@ const AboutUs = () => {
   const whyChooseInView = useInView(whyChooseRef, { once: true, margin: "-100px" });
   return (
     <section
-      className="relative py-16 px-6 bg-white text-center border-t-2 border-black"
+      className="relative py-16 px-6 text-center border-t-2 border-black before:content-[''] before:absolute before:inset-0 before:bg-black/40"
       style={{
         backgroundImage: "url('/bg-about.webp')",
         backgroundRepeat: "no-repeat",
@@ -24,7 +24,7 @@ const AboutUs = () => {
         backgroundSize: "cover",
       }}
     >
-      <h2 className="text-3xl md:text-4xl font-bold text-white mb-8 drop-shadow-lg">
+      <h2 className="text-3xl md:text-4xl font-bold text-white mb-8 drop-shadow-lg tracking-wider">
         ABOUT US
       </h2>
 
@@ -35,8 +35,8 @@ const AboutUs = () => {
         animate={overviewInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="max-w-3xl mx-auto text-white text-base leading-relaxed mb-12 drop-shadow">
-        <h1 className="text-2xl text-[#004B6B] font-bold mb-4 drop-shadow-lg">Company Overview</h1>
-        <p className="text-black font-bold">
+        <h1 className="text-2xl text-[#00A3FF] font-bold mb-4 drop-shadow-lg tracking-wide">Company Overview</h1>
+        <p className="text-gray-100 font-medium">
           iNTEL-CS, born in the cloud and thriving at the edge of innovation, is
           your partner for comprehensive IT modernization. Located in the UAE,
           our team of local experts is dedicated to transforming businesses
@@ -52,8 +52,8 @@ const AboutUs = () => {
           animate={missionInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="p-6 bg-black/50 backdrop-blur-sm rounded-lg shadow text-white">
-          <h3 className="text-xl font-semibold text-[#004B6B] mb-4">Mission</h3>
-          <p className="text-white text-base leading-relaxed">
+          <h3 className="text-xl font-semibold text-[#00A3FF] mb-4 tracking-wide">Mission</h3>
+          <p className="text-gray-100 text-base leading-relaxed">
             To empower businesses through innovative IT solutions, enhancing
             their capabilities and driving growth in a rapidly evolving digital
             landscape.
@@ -65,8 +65,8 @@ const AboutUs = () => {
           animate={visionInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="p-6 bg-black/50 backdrop-blur-sm rounded-lg shadow text-white">
-          <h3 className="text-xl font-semibold text-[#004B6B] mb-4">Vision</h3>
-          <p className="text-white text-base leading-relaxed">
+          <h3 className="text-xl font-semibold text-[#00A3FF] mb-4 tracking-wide">Vision</h3>
+          <p className="text-gray-100 text-base leading-relaxed">
             To be a leading provider of comprehensive IT modernization services,
             recognized for our expertise, customer-centric approach, and
             commitment to excellence.

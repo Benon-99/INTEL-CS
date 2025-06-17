@@ -13,6 +13,40 @@ interface Service {
 }
 
 const TopServices: React.FC = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 50, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 12
+      }
+    }
+  };
+
+  const titleVariants = {
+    hidden: { y: -50, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 200
+      }
+    }
+  };
   const services: Service[] = [
     {
       title: "Cloud Services",
@@ -37,21 +71,76 @@ const TopServices: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 relative z-20 bg-gray-300">
-        <h1 className="text-3xl font-bold mb-2 text-center text-[#004B6B]">Top Services</h1>
-        <div className="flex grid-cols-3 justify-center gap-4 ">
+    <motion.section 
+        className="py-16 relative z-20 bg-gray-300"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={containerVariants}
+    >
+        <motion.h1 
+          className="text-3xl font-bold mb-2 text-center text-[#004B6B]"
+          variants={titleVariants}
+        >
+          Top Services
+        </motion.h1>
+        <motion.div 
+          className="flex grid-cols-3 justify-center gap-4"
+          variants={containerVariants}
+        >
           {services&&services.map((service,index)=>(
-            <div key={index} className="relative hover:scale-110 transition-all duration-300">
-              <Image src={service.image} alt={service.title} width={500} height={500}  />
-              <div className="absolute top-[45vh] w-[70%] left-1/2 transform -translate-x-1/2 p-4 gap-2 h-[35%] flex flex-col">
-                <h2 className="text-xl font-bold text-[#004B6B] ">{service.title}</h2>  
-                <p className="text-black">{service.description}</p>
-                <Link href={service.link} className="text-white rounded-2xl bg-[#004B6B] p-2 mt-1 w-[38%] text-center hover:bg-[#2a88b0]">Read More</Link>
-              </div>
-            </div>
+            <motion.div 
+              key={index} 
+              className="relative hover:scale-110 transition-all duration-300"
+              variants={itemVariants}
+              whileHover={{ 
+                scale: 1.05,
+                transition: { duration: 0.2 }
+              }}
+            >
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+              >
+                <Image src={service.image} alt={service.title} width={500} height={500} />
+              </motion.div>
+              <motion.div 
+                className="absolute top-[45vh] w-[70%] left-1/2 transform -translate-x-1/2 p-4 gap-2 h-[35%] flex flex-col"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 + index * 0.2 }}
+              >
+                <motion.h2 
+                  className="text-xl font-bold text-[#004B6B]"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  {service.title}
+                </motion.h2>  
+                <motion.p 
+                  className="text-black"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.3 + index * 0.2 }}
+                >
+                  {service.description}
+                </motion.p>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Link 
+                    href={service.link} 
+                    className="text-white rounded-2xl bg-[#004B6B] p-2 mt-1 w-[38%] text-center hover:bg-[#2a88b0] inline-block"
+                  >
+                    Read More
+                  </Link>
+                </motion.div>
+              </motion.div>
+            </motion.div>
           ))}
-        </div>
-    </section>
+        </motion.div>
+    </motion.section>
   );
 };
 

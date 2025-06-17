@@ -87,7 +87,7 @@ const LandingServices = () => {
     <>
       {/* PROFESSIONAL SERVICES Carousel */}
       <section 
-        className="relative mb-16 h-[600px] overflow-hidden rounded-2xl"
+        className="relative h-[600px] overflow-hidden rounded-2xl"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
@@ -122,16 +122,16 @@ const LandingServices = () => {
                 quality={90}
                 priority
               />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70" />
+              <div className="absolute inset-0" />
             </div>
           </motion.div>
         </AnimatePresence>
 
         <div className="relative z-10 h-full flex flex-col justify-center items-center px-4">
-          <h2 className="text-4xl font-extrabold mb-6 text-center text-white uppercase">
+          <h2 className="text-4xl font-extrabold mb-6 text-center text-black uppercase tracking-wider drop-shadow-[0_0_25px_rgba(0,229,255,0.3)]">
             PROFESSIONAL SERVICES
           </h2>
-          <div className="w-16 h-1 mx-auto bg-white rounded-full mb-12"></div>
+          <div className="w-16 h-1 mx-auto bg-gradient-to-r from-[#00E5FF] to-[#0066FF] rounded-full mb-12 shadow-[0_0_15px_rgba(0,229,255,0.5)]"></div>
 
           <div className="max-w-3xl mx-auto text-center">
             <AnimatePresence mode="wait">
@@ -141,9 +141,9 @@ const LandingServices = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-white backdrop-blur-md bg-white/10 p-8 rounded-xl shadow-lg"
+                className="text-gray-100 backdrop-blur-md bg-black/30 p-8 rounded-xl shadow-lg border border-[#00E5FF]/20"
               >
-                <h3 className="text-3xl font-semibold mb-4">
+                <h3 className="text-3xl font-semibold mb-4 text-[#00E5FF] drop-shadow-[0_0_15px_rgba(0,229,255,0.3)]">
                   {professionalServices[currentSlide].title}
                 </h3>
                 <p className="text-lg leading-relaxed mb-8 max-w-2xl mx-auto">
@@ -151,7 +151,7 @@ const LandingServices = () => {
                 </p>
                 <a
                   href={professionalServices[currentSlide].link}
-                  className="inline-block text-lg py-3 px-8 border-2 border-white rounded-full hover:bg-white hover:text-[#004B6B] transition-colors"
+                  className="inline-block text-lg py-3 px-8 border-2 border-[#00E5FF] text-[#00E5FF] rounded-full hover:bg-[#00E5FF] hover:text-black transition-all duration-300 shadow-[0_0_15px_rgba(0,229,255,0.2)] hover:shadow-[0_0_25px_rgba(0,229,255,0.4)]"
                 >
                   Learn More
                 </a>
@@ -161,13 +161,13 @@ const LandingServices = () => {
 
           <button
             onClick={prevSlide}
-            className="absolute left-6 top-1/2 transform -translate-y-1/2 text-white text-5xl z-10 hover:text-gray-300 transition-colors"
+            className="absolute left-6 top-1/2 transform -translate-y-1/2 text-[#00E5FF] text-5xl z-10 hover:text-[#0066FF] transition-colors drop-shadow-[0_0_10px_rgba(0,229,255,0.3)]"
           >
             ‹
           </button>
           <button
             onClick={nextSlide}
-            className="absolute right-6 top-1/2 transform -translate-y-1/2 text-white text-5xl z-10 hover:text-gray-300 transition-colors"
+            className="absolute right-6 top-1/2 transform -translate-y-1/2 text-[#00E5FF] text-5xl z-10 hover:text-[#0066FF] transition-colors drop-shadow-[0_0_10px_rgba(0,229,255,0.3)]"
           >
             ›
           </button>
@@ -197,7 +197,7 @@ const LandingServices = () => {
         .bubble:nth-child(6) { left: 80%; width: 50px; height: 50px; animation-delay: 10s; }
         .bubble:nth-child(7) { left: 90%; width: 25px; height: 25px; animation-delay: 12s; }
       `}</style>
-      <section className="relative py-16 bg-gradient-to-b from-white to-[#f5f9fb] overflow-hidden bg-black/20 backdrop-blur-sm" style={{
+      <section className="relative py-16 overflow-hidden before:content-[''] before:absolute before:inset-0 before:bg-black/60" style={{
         backgroundImage: "url('/bg-about2.webp')",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
@@ -209,7 +209,7 @@ const LandingServices = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-3xl font-bold mb-6 text-center text-[#004B6B] relative z-10"
+          className="text-3xl font-bold mb-6 text-center text-white tracking-wider relative z-10 drop-shadow-lg"
         >
           MANAGED SERVICES
         </motion.h2>
@@ -218,7 +218,7 @@ const LandingServices = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
-          className="max-w-3xl mx-auto text-center mb-12 text-gray-700 px-4 relative z-10"
+          className="max-w-3xl mx-auto text-center mb-12 text-gray-100 px-4 relative z-10 drop-shadow"
         >
           We offer a comprehensive suite of managed services to ensure optimized,
           secure, and resilient cloud environments for your business.
@@ -238,7 +238,7 @@ const LandingServices = () => {
               alt="Managed Services Icon"
               className="w-60 h-60"
               style={{
-                filter: 'brightness(0) saturate(100%) invert(12%) sepia(95%) saturate(6000%) hue-rotate(185deg) brightness(90%) contrast(85%)',
+                filter: 'brightness(0) saturate(100%) invert(48%) sepia(90%) saturate(1000%) hue-rotate(180deg) brightness(200%) contrast(85%)',
               }}
             />
           </motion.div>
@@ -283,10 +283,10 @@ const LandingServices = () => {
                 viewport={{ once: true }}
                 className={`flex flex-col items-center text-center px-4 ${service.className}`}
               >
-                <h3 className="text-lg font-semibold text-[#004B6B] mb-2">
+                <h3 className="text-lg font-semibold text-[#00A3FF] mb-2 tracking-wide drop-shadow-lg">
                   {service.title}
                 </h3>
-                <p className="text-sm text-gray-700">
+                <p className="text-sm text-gray-100 drop-shadow">
                   {service.description}
                 </p>
               </motion.div>
