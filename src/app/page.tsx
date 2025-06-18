@@ -9,6 +9,7 @@ import { motion, useScroll, useSpring } from "framer-motion";
 import WaveBackground from "@/components/WaveBackground";
 
 import Clients from "@/components/Clients"; 
+import ManagedServices from "@/components/ManagedServices";
 
 export default function Home() {
   const { scrollYProgress } = useScroll();
@@ -58,6 +59,14 @@ export default function Home() {
         transition={{ duration: 0.8 }}
       >
         <Services />
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8 }}
+      >
+        <ManagedServices />
       </motion.div>
 
       <motion.div

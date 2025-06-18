@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const LandingServices = () => {
-  // Reference to store the interval
-  const intervalRef = React.useRef<NodeJS.Timeout | null>(null);
   const professionalServices = [
     {
       title: "Cloud Services",
@@ -31,270 +30,157 @@ const LandingServices = () => {
     },
   ];
 
- 
-
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [direction, setDirection] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-
-  // Start auto-slide when component mounts
-  React.useEffect(() => {
-    startAutoSlide();
-    return () => stopAutoSlide(); // Cleanup on unmount
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const startAutoSlide = () => {
-    if (intervalRef.current) return; // Don't start if already running
-    intervalRef.current = setInterval(() => {
-      if (!isPaused) {
-        setDirection(1);
-        setCurrentSlide((prev) => (prev + 1) % professionalServices.length);
-      }
-    }, 5 * 60 * 1000); // 5 minutes in milliseconds
-  };
-
-  const stopAutoSlide = () => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
-  };
-
-  // Pause auto-slide on hover
-  const handleMouseEnter = () => setIsPaused(true);
-  const handleMouseLeave = () => setIsPaused(false);
-
-  const nextSlide = () => {
-    setDirection(1);
-    setCurrentSlide((prev) => (prev + 1) % professionalServices.length);
-    // Reset the timer when manually changing slides
-    stopAutoSlide();
-    startAutoSlide();
-  };
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [direction, setDirection] = useState<"left" | "right">("right");
+  const [isHovered, setIsHovered] = useState<boolean>(false);
 
   const prevSlide = () => {
-    setDirection(-1);
-    setCurrentSlide(
-      (prev) =>
-        (prev - 1 + professionalServices.length) % professionalServices.length
+    setDirection("left");
+    setCurrentIndex((prevIndex) =>
+      (prevIndex - 1 + professionalServices.length) % professionalServices.length
     );
-    // Reset the timer when manually changing slides
-    stopAutoSlide();
-    startAutoSlide();
+  };
+
+  const nextSlide = () => {
+    setDirection("right");
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % professionalServices.length);
+  };
+
+  useEffect(() => {
+    if (!isHovered) {
+      const interval = setInterval(() => {
+        nextSlide();
+      }, 5000);
+      return () => clearInterval(interval);
+    }
+  }, [isHovered]);
+
+  const slideVariants = {
+    enter: (direction: "left" | "right") => ({
+      x: direction === "right" ? 1000 : -1000,
+      opacity: 0
+    }),
+    center: {
+      x: 0,
+      opacity: 1
+    },
+    exit: (direction: "left" | "right") => ({
+      x: direction === "right" ? -1000 : 1000,
+      opacity: 0
+    })
   };
 
   return (
     <>
-      {/* PROFESSIONAL SERVICES Carousel */}
-      <section 
-        className="relative h-[600px] overflow-hidden rounded-2xl"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+      <div className="relative py-8 bg-gradient-to-r from-gray-100 to-gray-200">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="container mx-auto text-center"
+        >
+          <h1 className="text-4xl md:text-5xl font-bold text-[#004B6B] mb-2">
+            Professional Services
+          </h1>
+          <div className="w-24 h-1 mx-auto bg-gradient-to-r from-[#004B6B] to-[#00E5FF] rounded-full mt-4"></div>
+        </motion.div>
+      </div>
+    <section className="w-screen h-screen overflow-hidden relative bg-black">
+      <div
+        className="absolute inset-0 z-0"
+        onMouseOver={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
-        <AnimatePresence initial={false} custom={direction}>
+        <AnimatePresence custom={direction} mode="wait">
           <motion.div
-            key={currentSlide}
+            key={currentIndex}
             custom={direction}
-            initial={{
-              x: direction === 1 ? 1000 : -1000,
-              opacity: 0
-            }}
-            animate={{
-              x: 0,
-              opacity: 1
-            }}
-            exit={{
-              x: direction === 1 ? -1000 : 1000,
-              opacity: 0
-            }}
-            transition={{
-              x: { type: "spring", stiffness: 300, damping: 30 },
-              opacity: { duration: 0.2 }
-            }}
-            className="absolute inset-0"
+            variants={slideVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+            className="w-full h-full absolute inset-0"
           >
-            <div className="relative w-full h-full">
-              <Image
-                src={professionalServices[currentSlide].image}
-                alt={`${professionalServices[currentSlide].title}`}
-                fill
-                className="object-cover"
-                quality={90}
-                priority
-              />
-              <div className="absolute inset-0" />
-            </div>
+            <Image
+              src={professionalServices[currentIndex].image}
+              alt={professionalServices[currentIndex].title}
+              fill
+              className="object-cover"
+              quality={90}
+              priority
+            />
+            <div className="absolute inset-0 bg-black/40" />
           </motion.div>
         </AnimatePresence>
+      </div>
 
-        <div className="relative z-10 h-full flex flex-col justify-center items-center px-4">
-          <h2 className="text-4xl font-extrabold mb-6 text-center text-black uppercase tracking-wider drop-shadow-[0_0_25px_rgba(0,229,255,0.3)]">
-            PROFESSIONAL SERVICES
-          </h2>
-          <div className="w-16 h-1 mx-auto bg-gradient-to-r from-[#00E5FF] to-[#0066FF] rounded-full mb-12 shadow-[0_0_15px_rgba(0,229,255,0.5)]"></div>
-
-          <div className="max-w-3xl mx-auto text-center">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentSlide}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-gray-100 backdrop-blur-md bg-black/30 p-8 rounded-xl shadow-lg border border-[#00E5FF]/20"
-              >
-                <h3 className="text-3xl font-semibold mb-4 text-[#00E5FF] drop-shadow-[0_0_15px_rgba(0,229,255,0.3)]">
-                  {professionalServices[currentSlide].title}
-                </h3>
-                <p className="text-lg leading-relaxed mb-8 max-w-2xl mx-auto">
-                  {professionalServices[currentSlide].description}
-                </p>
-                <a
-                  href={professionalServices[currentSlide].link}
-                  className="inline-block text-lg py-3 px-8 border-2 border-[#00E5FF] text-[#00E5FF] rounded-full hover:bg-[#00E5FF] hover:text-black transition-all duration-300 shadow-[0_0_15px_rgba(0,229,255,0.2)] hover:shadow-[0_0_25px_rgba(0,229,255,0.4)]"
-                >
-                  Learn More
-                </a>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          <button
-            onClick={prevSlide}
-            className="absolute left-6 top-1/2 transform -translate-y-1/2 text-[#00E5FF] text-5xl z-10 hover:text-[#0066FF] transition-colors drop-shadow-[0_0_10px_rgba(0,229,255,0.3)]"
+      {/* Content Overlay */}
+      <div className="relative z-10 flex flex-col justify-center items-center text-center h-full px-6">
+        <div className="backdrop-blur-md bg-black/30 p-8 rounded-xl max-w-3xl">
+          <motion.h2
+            key={`title-${currentIndex}`}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-white text-4xl md:text-5xl font-extrabold uppercase mb-6 drop-shadow-lg"
           >
-            ‹
-          </button>
-          <button
-            onClick={nextSlide}
-            className="absolute right-6 top-1/2 transform -translate-y-1/2 text-[#00E5FF] text-5xl z-10 hover:text-[#0066FF] transition-colors drop-shadow-[0_0_10px_rgba(0,229,255,0.3)]"
+            {professionalServices[currentIndex].title}
+          </motion.h2>
+          <motion.p
+            key={`desc-${currentIndex}`}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-lg text-gray-200 max-w-2xl mb-8 drop-shadow leading-relaxed"
           >
-            ›
-          </button>
-        </div>
-      </section>
-
-      {/* MANAGED SERVICES */}
-      <style jsx>{`
-        @keyframes float {
-          0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-          50% { opacity: 0.5; }
-          100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-        }
-        .bubble {
-          position: absolute;
-          bottom: -50px;
-          background: rgba(0, 75, 107, 0.1);
-          border-radius: 50%;
-          pointer-events: none;
-          animation: float 15s infinite linear;
-        }
-        .bubble:nth-child(1) { left: 10%; width: 40px; height: 40px; animation-delay: 0s; }
-        .bubble:nth-child(2) { left: 20%; width: 60px; height: 60px; animation-delay: 2s; }
-        .bubble:nth-child(3) { left: 35%; width: 30px; height: 30px; animation-delay: 4s; }
-        .bubble:nth-child(4) { left: 50%; width: 45px; height: 45px; animation-delay: 6s; }
-        .bubble:nth-child(5) { left: 65%; width: 35px; height: 35px; animation-delay: 8s; }
-        .bubble:nth-child(6) { left: 80%; width: 50px; height: 50px; animation-delay: 10s; }
-        .bubble:nth-child(7) { left: 90%; width: 25px; height: 25px; animation-delay: 12s; }
-      `}</style>
-      <section className="relative py-16 overflow-hidden before:content-[''] before:absolute before:inset-0 before:bg-black/60" style={{
-        backgroundImage: "url('/bg-about2.webp')",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
-        backgroundSize: "cover",
-      }}>
-        
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-3xl font-bold mb-6 text-center text-white tracking-wider relative z-10 drop-shadow-lg"
-        >
-          MANAGED SERVICES
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="max-w-3xl mx-auto text-center mb-12 text-gray-100 px-4 relative z-10 drop-shadow"
-        >
-          We offer a comprehensive suite of managed services to ensure optimized,
-          secure, and resilient cloud environments for your business.
-        </motion.p>
-
-        <div className="relative max-w-5xl mx-auto px-4">
-          {/* Central Icon */}
+            {professionalServices[currentIndex].description}
+          </motion.p>
           <motion.div
-            initial={{ opacity: 0, scale: 0.5, rotate: -180 }}
-            whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-            transition={{ duration: 1, delay: 0.3, type: "spring" }}
-            viewport={{ once: true }}
-            className="flex justify-center mb-16 relative"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <img
-              src="/cloud_gear.png"
-              alt="Managed Services Icon"
-              className="w-60 h-60"
-              style={{
-                filter: 'brightness(0) saturate(100%) invert(48%) sepia(90%) saturate(1000%) hue-rotate(180deg) brightness(200%) contrast(85%)',
-              }}
-            />
+            <a
+              href={professionalServices[currentIndex].link}
+              className="inline-block py-3 px-8 bg-[#00E5FF] text-white text-lg font-medium rounded-full hover:bg-[#0066FF] transition-all duration-300 shadow-lg hover:shadow-xl"
+            >
+              Learn More
+            </a>
           </motion.div>
-
-          {/* 4 blocks */}
-          <div className="absolute top-10 grid grid-cols-2 gap-10">
-            {[
-              {
-                title: "24/7 Cloud Infrastructure Management",
-                description: "Round-the-clock monitoring and management of cloud infrastructure with proactive maintenance and optimization.",
-                delay: 0.4,
-                x: -50,
-                className: "mr-50"
-              },
-              {
-                title: "Security Operations",
-                description: "Continuous security monitoring and threat detection with expert security analysts.",
-                delay: 0.6,
-                x: 50,
-                className: "ml-50"
-              },
-              {
-                title: "Backup & Disaster Recovery",
-                description: "Automated backup solutions with comprehensive disaster recovery planning and testing.",
-                delay: 0.8,
-                x: -50,
-                className: "mr-50"
-              },
-              {
-                title: "Custom Managed Service",
-                description: "Tailored managed services to match your unique business requirements and ensure operational efficiency.",
-                delay: 1,
-                x: 50,
-                className: "ml-50"
-              }
-            ].map((service, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: service.x }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: service.delay }}
-                viewport={{ once: true }}
-                className={`flex flex-col items-center text-center px-4 ${service.className}`}
-              >
-                <h3 className="text-lg font-semibold text-[#00A3FF] mb-2 tracking-wide drop-shadow-lg">
-                  {service.title}
-                </h3>
-                <p className="text-sm text-gray-100 drop-shadow">
-                  {service.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
         </div>
-      </section>
+      </div>
 
+      {/* Navigation */}
+      <button
+        onClick={prevSlide}
+        className="absolute top-1/2 left-4 transform -translate-y-1/2 z-20 bg-[#111927] hover:bg-[#1a222f] p-2 rounded-full text-white"
+      >
+        <ChevronLeft className="w-6 h-6" />
+      </button>
+      <button
+        onClick={nextSlide}
+        className="absolute top-1/2 right-4 transform -translate-y-1/2 z-20 bg-[#111927] hover:bg-[#1a222f] p-2 rounded-full text-white"
+      >
+        <ChevronRight className="w-6 h-6" />
+      </button>
+
+      {/* Dot Indicators */}
+      <div className="absolute bottom-6 w-full flex justify-center z-20">
+        {professionalServices.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => {
+              setDirection(index > currentIndex ? "right" : "left");
+              setCurrentIndex(index);
+            }}
+            className={`h-2 w-8 mx-1 rounded-full transition-all duration-300 ${
+              index === currentIndex ? "bg-[#00E5FF]" : "bg-gray-400 hover:bg-gray-500"
+            }`}
+          />
+        ))}
+      </div>
+    </section>
     </>
   );
 };

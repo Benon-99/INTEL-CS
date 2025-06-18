@@ -23,10 +23,36 @@ const TopServices: React.FC = () => {
     }
   };
 
-  const itemVariants = {
-    hidden: { y: 50, opacity: 0 },
+  const leftCardVariants = {
+    hidden: { x: -100, opacity: 0 },
+    visible: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 12
+      }
+    }
+  };
+
+  const middleCardVariants = {
+    hidden: { y: -100, opacity: 0 },
     visible: {
       y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 12
+      }
+    }
+  };
+
+  const rightCardVariants = {
+    hidden: { x: 100, opacity: 0 },
+    visible: {
+      x: 0,
       opacity: 1,
       transition: {
         type: "spring",
@@ -92,7 +118,7 @@ const TopServices: React.FC = () => {
             <motion.div 
               key={index} 
               className="relative hover:scale-110 transition-all duration-300"
-              variants={itemVariants}
+              variants={index === 0 ? leftCardVariants : index === 1 ? middleCardVariants : rightCardVariants}
               whileHover={{ 
                 scale: 1.05,
                 transition: { duration: 0.2 }
